@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="RPartList" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="RPartList" version="1.1">
+
+    <object class="RPartListItem" table="prl_items" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="brand_id" dbtype="int" precision="11" phptype="integer" null="false" default=""/>
+        <field key="service" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="price" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="impuls" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="rservice" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" default=""/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+
+        <index alias="name" name="name" primary="false" unique="false" type="BTREE">
+            <column key="name" length="" collation="A" null="false"/>
+        </index>
+        <index alias="brand_id" name="brand_id" primary="false" unique="false" type="BTREE">
+            <column key="brand_id" length="" collation="A" null="false"/>
+        </index>
+        <index alias="service" name="service" primary="false" unique="false" type="BTREE">
+            <column key="service" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+        <aggregate alias="RPartBrand" class="RPartBrand" local="brand_id" foreign="id" cardinality="one" owner="foreign" />
+    </object>
+
+    <object class="RPartBrand" table="prl_brand" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="description" dbtype="text" phptype="string" null="true" default=""/>
+        <field key="active" dbtype="tinyint" precision="1" phptype="boolean" null="true" default="1"/>
+
+        <index alias="name" name="name" primary="false" unique="false" type="BTREE">
+            <column key="name" length="" collation="A" null="false"/>
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE">
+            <column key="active" length="" collation="A" null="false"/>
+        </index>
+        <composite alias="RPartListItem" class="RPartListItem" local="id" foreign="brand_id" cardinality="many" owner="local" />
+    </object>
+
+    <object class="RPartLog" table="prl_log" extends="xPDOSimpleObject">
+        <field key="user_id" dbtype="int" precision="11" phptype="integer" null="false" />
+        <field key="user_name" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="groups_id" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="action" dbtype="varchar" precision="255" phptype="string" null="false" default=""/>
+        <field key="action_date" dbtype="datetime" phptype="datetime" null="false" />
+    </object>
+</model>
