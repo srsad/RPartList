@@ -29,7 +29,7 @@ class RPartListItemCreateProcessor extends modObjectCreateProcessor
             $create_log->set('user_id', $user_id);
             $create_log->set('user_name', $this->modx->user->fullname);
             $create_log->set('groups_id', $userGroups);
-            $create_log->set('action', 'Создание => ' . $this->getProperty('name'));
+            $create_log->set('action', 'Создание => ' . $this->getProperty('name') . ' => ' .  $this->getProperty('service'));
             $create_log->set('action_date', date("Y-m-d H:i:s"));
             $create_log->save();
         }
